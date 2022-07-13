@@ -1,0 +1,26 @@
+def megre_split(a, b):
+    M, N, C = len(a), len(b), []
+    i = j = 0
+
+    while i < M and j < N:
+        if a[i] <= b[j]:
+            C.append(a[i])
+            i += 1
+        else:
+            C.append(b[j])
+            j += 1
+
+    C += a[i:] + b[j:]
+    return C
+
+
+def megre_split_sort(a):
+    if len(a) == 1:
+        return a
+    n = len(a) // 2
+    a1 = megre_split_sort(a[:n])
+    a2 = megre_split_sort(a[n:])
+    return megre_split(a1, a2)
+
+
+print(*megre_split_sort([*map(int, input().split())]))
